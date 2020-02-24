@@ -1,0 +1,5 @@
+# requirements.txt
+kafka-python
+SPARQLWrapper
+docker-host-ip
+names

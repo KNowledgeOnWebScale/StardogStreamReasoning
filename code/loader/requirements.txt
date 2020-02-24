@@ -1,0 +1,8 @@
+# requirements.txt
+kafka-python
+SPARQLWrapper
+pystardog
+rdflib
+rdflib-jsonld
+flask
+pytz

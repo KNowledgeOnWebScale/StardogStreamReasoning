@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  stardog:
+    build: ./stardog-docker
+    command: "bash -c 'mount'"
+    volumes:
+      - cache_vol:/stardog
+    ports:
+      - "5820:5820"
+
+  load:
+    build: ./loader
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      SEMANTIC_EVENTS_TOPIC: stardog.demo
+      SEMANTIC_ANOMALIES_TOPIC: dyversify.anomalies
+
+      STARDOG_URL: http://docker.for.mac.localhost:5820
+      PYTHONUNBUFFERED: 1
+    depends_on:
+      - "stardog"
+
+
+  produce:
+    build: ./produce
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      SEMANTIC_EVENTS_TOPIC: stardog.demo
+    depends_on:
+      - "load"
+networks:
+  default:
+    external:
+      name: kafka-network
+
+volumes:
+  cache_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs

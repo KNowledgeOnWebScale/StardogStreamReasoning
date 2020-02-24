@@ -1,0 +1,14 @@
+@prefix : <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+IF {
+    ?h1 <http://www.w3.org/ns/sosa/hasSimpleResult> ?r1 .
+    ?h2 <http://www.w3.org/ns/sosa/hasSimpleResult> ?r2 .
+    FILTER (?r2-?r1>10) .
+    ?h1 <http://IBCNServices.github.io/Folio-Ontology/Folio.owl#hasEpochTime> ?t1.
+    ?h2 <http://IBCNServices.github.io/Folio-Ontology/Folio.owl#hasEpochTime> ?t2.
+    FILTER(?t1<?t2) .
+}
+THEN {
+   ?h1 <http://example.com/temp_raised_high> ?t2 .
+}
